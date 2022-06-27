@@ -35,7 +35,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Build image and push to Docker Hub and GitHub Container Registry
+      #- name: Build image and push to Docker Hub and GitHub Container Registry
+      - name: Build image and push to GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
@@ -45,7 +46,7 @@ jobs:
             senilepenguin/sui-docker:latest 
             ghcr.io/senilepenguin/sui-docker:latest
           # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: ${{ github.ref == 'refs/heads/main' }} --push
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
