@@ -1,0 +1,38 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -f /config/www/data/apps.json ]; then
+  cp -f \
+    /defaults/apps.json \
+    /config/www/data/apps.json
+  sed -i \
+    "s/DOMAIN/${DOMAIN}/g" \
+      /config/www/data/apps.json
+else
+  echo "**** apps.json-file found. Skipping installation... ****"
+fi
+
+
+if [ ! -f /config/www/data/links.json ]; then
+  cp -f \
+    /defaults/links.json \
+    /config/www/data/links.json
+else
+  echo "**** links.json-file found. Skipping installation... ****"
+fi
+
+
+if [ ! -f /config/www/index.html ]; then
+  cp -f \
+    /defaults/index.html \
+    /config/www/index.html
+  sed -i \
+    "s/PROTOCOL/${PROTOCOL}/g" \
+      /config/www/index.html
+else
+  echo "**** index.html-file found. Skipping installation... ****"
+fi
+
+# Permissions Stuffs
+chown -R \
+  abc:abc \
+    /config/www

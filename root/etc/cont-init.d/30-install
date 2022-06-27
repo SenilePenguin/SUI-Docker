@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -f /config/www/sui.lock ]; then
+  echo "**** Installing SUI  ****"
+  rm -Rf /config/www/*
+  git clone \
+    https://github.com/senilepenguin/sui.git \
+      /tmp/sui
+  rm -f \
+    /tmp/sui/docker-compose.yml \
+    /tmp/sui/Dockerfile \
+    /tmp/sui/License.md \
+    /tmp/sui/data/apps.json \
+    /tmp/sui/data/links.json \
+    /tmp/sui/index.html
+  rm -Rf /tmp/sui/.git
+  cp -Rf \
+    /tmp/sui/. \
+    /config/www/
+  rm -Rf /tmp/sui
+  touch /config/www/sui.lock
+else
+  echo "**** lock-file found. Skipping installation... ****"
+fi
+
+# Permission Stuffs
+chown -R \
+  abc:abc \
+    /config/www
