@@ -1,6 +1,7 @@
 FROM lsiobase/nginx:3.14
 
 LABEL maintainer="SenilePenguin"
+LABEL org.opencontainers.image.source="https://github.com/senilepenguin/sui-docker"
 
 RUN \
     echo "**** Install dependencies, build tools and stuff ****" && \
